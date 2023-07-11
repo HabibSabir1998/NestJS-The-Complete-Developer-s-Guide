@@ -1,0 +1,32 @@
+version: "3"
+services:
+  postgresdb:
+    container_name: postgres
+    image: postgres:14.1-alpine3.14
+    hostname: postgre
+    restart: on-failure:3
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=test
+      - PGDATA=/var/lib/postgres/data
+    volumes:
+      - ./var/data/postgres:/var/lib/postgres/data
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:6
+    ports:
+      - 5050:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=postgres@tradeway.me
+      - PGADMIN_DEFAULT_PASSWORD=postgres#123
+    volumes:
+      - ./var/data/pgadmin:/var/lib/pgadmin
+      - ./var/data/pgadmin:/var/lib/pgadmin/storage
+    depends_on:
+      - postgresdb
+    restart: always
+
+
