@@ -8,3 +8,11 @@ Content-type: application/json
     "password": "sfsfs"
     
 }
+
+### find a user of particular given id
+
+GET http://localhost:3000/auth/1
+
+### find all users of given email
+
+GET http://localhost:3000/auth?email=abc@example.com
